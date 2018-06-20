@@ -3,22 +3,3 @@ create_my.sql    - skrypt SQL - tworzy tabele MySQL/MariaDB
 
 create_admin.php - zapisuje admin/admin do bazy (baza z odpowiednimi tabelami musi istnieć)
 
-Debugowanie:
-
-sudo pecl install xdebug
-
-Do php.ini:
-
-zend_extension = /usr/lib/php/20170718/xdebug.so
-xdebug.remote_enable = 1
-xdebug.remote_connect_back=1
-xdebug.remote_port = 9001
-xdebug.scream=0
-xdebug.show_local_vars=1
-
-W Netbeans - ustawić odpowiedni port (9001).
-
-Test z serwerem wbudowanym:
-
-php -S localhost:8001
-

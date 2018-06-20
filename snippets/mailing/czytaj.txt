@@ -1,0 +1,17 @@
+Przykład wykorzystania repozytoriów modułów PEAR i  packagist.org (composer).
+Skrypt do wysyłania maili.
+
+Przed uruchomieniem ustaw parametry w par.php.
+                                      ^^^^^^^
+
+Instalacja modułów PHP z bibliotek PEAR:
+
+pear install mail
+pear install Net_SMTP
+pear install Auth_SASL
+
+Instalacja modułów composerem (https://github.com/swiftmailer/swiftmailer):
+
+composer require swiftmailer/swiftmailer
+
+

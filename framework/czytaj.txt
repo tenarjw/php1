@@ -1,0 +1,100 @@
+Wykorzystania frameworków na przykładzie Yii
+
+1. Tworzenie nowego projektu:
+----------------------------
+composer create-project --prefer-dist  yiisoft/yii2-app-basic <nazwa>
+
+Na przykład:
+
+composer create-project --prefer-dist  yiisoft/yii2-app-basic basic
+
+
+
+2. Konfiguracja:
+---------------
+- baza danych (conf/db.php):
+Przykład dla bazy "pracownicy" (zob. pracownicy.sql) na lokalnym komputerze, użytkownik root bez hasła:
+   'class' => 'yii\db\Connection',
+    'dsn' => 'mysql:host=localhost;dbname=books',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8',
+
+- generatro modułów Gii (plik config/web.php - dodać na początku definicję stałej YII_ENV):
+
+  defined('YII_ENV') or define('YII_ENV', 'dev');
+
+
+3. Generowanie modułu:
+---------------------
+http://localhost/basic/index.php?r=gii
+
+- model (zob katalog model):
+   osoby /Osoby
+- CRUD (controller, views/pracownicy)
+   model: app\models\Osoby
+   controller: app\controllers\OsobyController
+
+
+4. Testowanie przykładu:
+------------------------
+http://localhost/basic/index.php?r=osoby
+
+5. Własna skacja:
+----------------
+http://localhost/basic/index.php?r=osoby/test
+
+ w OsobyController.php:
+---------------
+    public function actionTest()
+    {
+        $model=new Osoby();.
+        return $this->render('test', [
+            'model' => $model,
+        ]);
+    }
+------------
+ dodać views/osoby/test.php:
+
+------------
+<?php
+
+use yii\widgets\ListView;
+use yii\data\ActiveDataProvider;
+// https://www.yiiframework.com/doc/guide/2.0/en/output-data-widgets
+?>
+<h1>Operacja na modelu</h1>
+<ul>
+<?php
+
+foreach ($model->find()->all() as $osoba) {
+  print '<li>'.$osoba->nazwisko.'</li>';
+}
+?>
+</ul>
+
+<h1> z wykorzystaniem widgetu ListView </h1>
+
+<?php
+$dataProvider = new ActiveDataProvider([
+    'query' => $model::find(),
+    'pagination' => [
+        'pageSize' => 20,
+    ],
+]);
+echo ListView::widget([
+    'dataProvider' => $dataProvider,
+    'itemView' => 'osoba',
+]);
+
+
+-------------------------
+
+ dodać views/osoby/osoba.php:
+
+----------------------
+<hr />
+<?php
+echo $model->nazwisko;
+
+?>
